@@ -1,10 +1,7 @@
 package com.ypp.room.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.ypp.room.model.Book
 
 @Dao
@@ -14,4 +11,12 @@ interface BookDao{
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(book: Book)
+
+    @Query("DELETE FROM book_table")
+    suspend fun deleteAll()
+
+    @Query("DELETE FROM book_table WHERE book_name=:name")
+    suspend fun deleteItem(name:String)
+
+
 }

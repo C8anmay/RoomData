@@ -25,4 +25,11 @@ class BookViewModel(application: Application)
     fun insert(book: Book)=viewModelScope.launch {
         repository.insert(book)
     }
+    fun delete()=viewModelScope.launch {
+        repository.delete()
+    }
+
+    fun deleteItem(name:String)=viewModelScope.launch {
+        repository.deleteItem(name)
+    }
 }

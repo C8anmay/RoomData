@@ -10,11 +10,25 @@ import kotlinx.android.synthetic.main.item_book.view.*
 
 class BookAdaptor:RecyclerView.Adapter<BookAdaptor.BookViewHoler>(){
 
+    var clickListener:ClickListener?=null
+
+    fun onClickListener(clickListener: ClickListener){
+        this.clickListener=clickListener
+    }
     private var books= emptyList<Book>()
-    inner class BookViewHoler(itemView: View) :RecyclerView.ViewHolder(itemView){
+    inner class BookViewHoler(itemView: View) :RecyclerView.ViewHolder(itemView), View.OnClickListener{
+        init {
+            itemView.setOnClickListener(this)
+        }
+        lateinit var book2: Book
 
         fun bind(book: Book){
+            this.book2=book
             itemView.txt_book_name.text=book.bookName
+        }
+
+        override fun onClick(p0: View?) {
+            clickListener?.click(book2)
         }
 
     }
@@ -34,5 +48,8 @@ class BookAdaptor:RecyclerView.Adapter<BookAdaptor.BookViewHoler>(){
 
     override fun onBindViewHolder(holder: BookViewHoler, position: Int) {
         holder.bind(books[position])
+    }
+    interface ClickListener{
+        fun click(book: Book)
     }
 }
