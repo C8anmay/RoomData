@@ -2,6 +2,7 @@ package com.ypp.room
 
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -71,7 +72,24 @@ class MainActivity : AppCompatActivity(), BookAdaptor.ClickListener {
     }
 
     override fun click(book: Book) {
-        bookViewModel.deleteItem(book.bookName)
+        val builder = AlertDialog.Builder(this)
+        builder.apply {
+            setTitle("Delete item")
+            setMessage("Are you sure to delete?")
+            setIcon(android.R.drawable.ic_dialog_alert)
+            setPositiveButton("YES"){
+                dialogInterface, i ->
+                bookViewModel.deleteItem(book.bookName)
+            }
+
+            setNegativeButton("No"){
+                dialogInterface, i ->
+                Toast.makeText(applicationContext,
+                "Delete Cancel", Toast.LENGTH_LONG).show()
+            }
+        }
+        val alertDialog=builder.create()
+        alertDialog.show()
     }
 
 
