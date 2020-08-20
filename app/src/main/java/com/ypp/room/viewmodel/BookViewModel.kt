@@ -32,4 +32,8 @@ class BookViewModel(application: Application)
     fun deleteItem(name:String)=viewModelScope.launch {
         repository.deleteItem(name)
     }
+    fun updateItem(updateName:String, name:String)=viewModelScope.launch{
+        repository.updateItem(updateName,name)
+
+    }
 }

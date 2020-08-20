@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ypp.room.adapter.BookAdaptor
 import com.ypp.room.model.Book
 import com.ypp.room.viewmodel.BookViewModel
+import kotlinx.android.synthetic.main.activity_add_book.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.dialog_update.view.*
 
 class MainActivity : AppCompatActivity(), BookAdaptor.ClickListener {
 
@@ -87,7 +89,30 @@ class MainActivity : AppCompatActivity(), BookAdaptor.ClickListener {
                 Toast.makeText(applicationContext,
                 "Delete Cancel", Toast.LENGTH_LONG).show()
             }
+            setNeutralButton("Update"){
+                dialogInterface, i ->
+                val updateBuilder=AlertDialog.Builder(context)
+                val dialogLayout=layoutInflater.inflate(R.layout.dialog_update,null,false)
+                updateBuilder.apply {
+                    setTitle("Update Book")
+                    setView(dialogLayout)
+                    setPositiveButton("OK"){
+                        dialogInterface, i ->
+                        val updatText= dialogLayout.dialogUpdate.text.toString()
+                        bookViewModel.updateItem(
+                            updatText,book.bookName
+                        )
+                    }
+                }
+                val updateDialog:AlertDialog=updateBuilder.create()
+                updateDialog.show()
+            }
         }
+
+//        setNeutralButton("text"){
+//            dialo
+//        }
+
         val alertDialog=builder.create()
         alertDialog.show()
     }

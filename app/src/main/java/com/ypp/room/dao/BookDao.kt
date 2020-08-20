@@ -18,5 +18,8 @@ interface BookDao{
     @Query("DELETE FROM book_table WHERE book_name=:name")
     suspend fun deleteItem(name:String)
 
+    @Query("Update book_table SET book_name=:updateName Where book_name=:name")
+    suspend fun updateItem(updateName:String, name: String)
+
 
 }
